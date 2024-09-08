@@ -46,7 +46,7 @@ A **Property Wrapper** is essentially a `struct`, `class`, or `enum` that 
 
 Here’s a simple example of how you can use a Property Wrapper to manage `UserDefaults`, as shown in the first example, in a more elegant way:
 
-```
+```swift
 @propertyWrapper
 struct UserDefault<T> {
     private let key: String
@@ -76,7 +76,7 @@ In this `UserDefault` Property Wrapper:
 
 Now, you can use this Property Wrapper in your code like this:
 
-```
+```swift
 extension UserDefaults {
 
     @UserDefault(key: "app_version", defaultValue: 1)
@@ -99,7 +99,7 @@ To use Property Wrappers in Swift, you’ll need to understand the key component
 
 The `@propertyWrapper` attribute is used to mark a `struct`, `class`, or `enum` as a Property Wrapper. This attribute tells Swift that the type is designed to manage the storage and logic for a property. Here’s a basic example of a Property Wrapper definition:
 
-```
+```swift
 @propertyWrapper
 struct ExampleWrapper {
     // Internal storage for the value
@@ -127,7 +127,7 @@ struct ExampleWrapper {
 
 The `wrappedValue` property is required in every Property Wrapper. It is the main interface through which the wrapped property’s value is accessed and modified. The `wrappedValue` property provides the getter and setter methods to manage how the underlying value is retrieved and updated. For instance:
 
-```
+```swift
 @propertyWrapper
 struct Uppercase {
     private var value: String
@@ -156,7 +156,7 @@ The `getter` and `setter` methods within `wrappedValue` allow you to defin
 
 Property Wrappers often use an internal value to manage the updated value. This internal value is usually stored in a private property and is accessed and modified through the `wrappedValue`. Here’s an example:
 
-```
+```swift
 @propertyWrapper
 struct Clamped {
     private var internalValue: Int
@@ -191,7 +191,7 @@ Let’s take a look at how Swift handles Property Wrappers behind the scenes, us
 
 Here’s the `TwelveOrLess` Property Wrapper:
 
-```
+```swift
 @propertyWrapper
 struct TwelveOrLess {
     private var _value = 0
@@ -213,7 +213,7 @@ This wrapper ensures that any value assigned to it doesn’t exceed 12.
 
 In a `SmallRectangle` struct, you can use the `TwelveOrLess` wrapper like this:
 
-```
+```swift
 struct SmallRectangle {
     @TwelveOrLess var height: Int
     @TwelveOrLess var width: Int
@@ -230,7 +230,7 @@ struct SmallRectangle {
 
 When Swift compiles this code, it automatically generates additional code to manage the Property Wrapper. Here’s what Swift creates behind the scenes:
 
-```
+```swift
 struct SmallRectangle {
     private var _height = TwelveOrLess(wrappedValue: 0)
     private var _width = TwelveOrLess(wrappedValue: 0)
@@ -270,7 +270,7 @@ When working with Property Wrappers, you might encounter situations where you ne
 
 In the previous example, you might have noticed that you can’t define a default value for a Property Wrapper directly, resulting in an error like `Argument passed to call that takes no arguments`.
 
-```
+```swift
 struct SmallRectangle {
     // Argument passed to call that takes no arguments
     @TwelveOrLess var height: Int = 1
@@ -284,7 +284,7 @@ To solve this issue, you need to provide an initializer (`init()`) in the Proper
 
 By default, if you don’t assign any initial value to the wrapped property, Swift will call the default initializer `init()` of the Property Wrapper. Here’s how you can enhance the `TwelveOrLess` Property Wrapper to support initial values and custom configuration:
 
-```
+```swift
 @propertyWrapper
 struct SmallNumber {
     private var maximum: Int = 12
@@ -318,7 +318,7 @@ struct SmallNumber {
 
 When you don’t provide initial values for the wrapped property, the default initializer `init()` is called:
 
-```
+```swift
 struct UnitRectangle {
     @SmallNumber var height: Int
     @SmallNumber var width: Int
@@ -329,7 +329,7 @@ struct UnitRectangle {
 
 You can specify both the `wrappedValue` and the `maximum.` It will call the initializer `init(wrappedValue: Int, maximum: Int)`
 
-```
+```swift
 struct NarrowRectangle {
     @SmallNumber(wrappedValue: 2, maximum: 5) var height: Int
     @SmallNumber(wrappedValue: 3, maximum: 4) var width: Int
@@ -340,7 +340,7 @@ struct NarrowRectangle {
 
 You can mix different ways of initialization. The compiler will use the appropriate initializer based on the provided values:
 
-```
+```swift
 struct MixedRectangle {
     @SmallNumber(maximum: 9) var width: Int = 2
 }
@@ -361,7 +361,7 @@ When using a Property Wrapper in your class or struct, you can access the `proj
 
 In this example, we will implement behavior similar to the `@Published` property wrapper, where the `projectedValue` is a Publisher that emits updates whenever the `wrappedValue` changes.
 
-```
+```swift
 @propertyWrapper
 struct UserDefault<Value> {
     private let key: String
@@ -387,7 +387,7 @@ struct UserDefault<Value> {
 
 Here’s an example of how to use it:
 
-```
+```swift
 class SettingsViewModel {
     @UserDefault(key: "isDarkMode", defaultValue: false)
     var isDarkMode: Bool
@@ -409,7 +409,7 @@ class SettingsViewModel {
 
 1. The `projectedValue` of a `@State` property wrapper is a property wrapper instance with type of `Binding<Value>`
 
-```
+```swift
 struct ParentView: View {
     @State private var counter: Int = 0  // State property
 
@@ -433,7 +433,7 @@ struct ParentView: View {
 
 2. The `projectedValue` of `@Binding` is simply itself, as `@Binding` is already a `Binding<Value>`.
 
-```
+```swift
 struct SliderView: View {
     // Receiving the projectedValue (Binding) from ParentViewWithSlider
     @Binding var sliderValue: Double
