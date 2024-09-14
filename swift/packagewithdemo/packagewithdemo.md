@@ -18,7 +18,7 @@ This will create a new folder named `MySwiftPackage` and set up the initial stru
 
 Next, open Xcode and create a new Xcode project within the root directory of your Swift package. This project will serve as a demo application that utilizes your Swift package. For example, you might name the project `DemoAppMyPackage`. Your package folder should look like this:
 
-![](images/1.png)
+![](resources/1.png)
 
 ### 3. Add Your Package to the Demo Project
 
@@ -27,7 +27,7 @@ To integrate your Swift package into the demo project, follow these steps:
 1. Open your demo app Xcode project and create a new folder named `Packages` within the project navigator.
 2. **Drag and drop** your Swift package folder into the `Packages` folder.
 
-![](images/2.png)
+![](resources/2.png)
 
 ### 4. Configure Target Settings
 
@@ -36,7 +36,7 @@ After adding the package, you need to configure the target settings to ensure th
 1. Select the project file in Xcode, and navigate to the “**General**” tab.
 2. Under “**Frameworks, Libraries, and Embedded Content**,” click the “+” button and add your Swift package.
 
-![](images/3.png)
+![](resources/3.png)
 
 ### Conclusion
 
