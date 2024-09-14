@@ -4,8 +4,11 @@
 
 ## 🌟 Latest Posts
 
-- **[Property Wrappers in Swift](swift/propertywrapper.md)**  
+- **[Property Wrappers in Swift](swift/propertywrapper/propertywrapper.md)**  
 This post explains how Property Wrappers in Swift help reduce boilerplate and simplify property management, using practical examples like UserDefaults.
+
+- **[How to Create a Swift Package with a Demo Project](swift/packagewithdemo/packagewithdemo.md)**  
+
 ---
 
 ## 📝 About Me
